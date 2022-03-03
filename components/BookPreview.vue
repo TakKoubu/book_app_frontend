@@ -5,7 +5,8 @@
     <p>著者-{{ book.author }}</p>
     <p>出版日-{{ book.publication_date }}</p>
     <p>価格-{{ book.price }}</p>
-    <p>在庫-{{ book.stock }}</p>
+    <p v-if="book.stock === 0">在庫なし</p>
+    <p v-else>在庫-{{ book.stock }}</p>
     <br />
   </div>
 </template>

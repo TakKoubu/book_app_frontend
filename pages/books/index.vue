@@ -1,6 +1,20 @@
 <template>
   <section>
-    <input v-model="query.name_or_author_cont" />
+    <input v-model="query.name_or_author_or_publication_date_cont" />
+    <select
+      v-model="query.categories_name_in"
+      name="category-form"
+      class="select-multiple"
+      multiple
+    >
+      <option
+        v-for="category in loadedCategories"
+        :key="category.id"
+        :value="category.id"
+      >
+        {{ category.id }}-{{ category.name }}
+      </option>
+    </select>
     <button @click="searchBook">Search</button>
     <BookPreview v-for="book in loadedBooks" :key="book.id" :book="book" />
   </section>
@@ -17,6 +31,7 @@ export default {
     return {
       query: {
         name_cont_or_author_cont: "",
+        categories_name_in: [],
       },
     };
   },
@@ -25,12 +40,15 @@ export default {
   },
   created() {
     this.fetchBooks();
+    this.fetchCategories();
   },
   computed: {
     ...mapGetters(["loadedBooks"]),
+    ...mapGetters(["loadedCategories"]),
   },
   methods: {
     ...mapActions(["fetchBooks"]),
+    ...mapActions(["fetchCategories"]),
     searchBook() {
       this.$store.dispatch("fetchBooks", {
         params: {
