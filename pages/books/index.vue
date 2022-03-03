@@ -1,7 +1,6 @@
 <template>
   <div>
     <BookPreview v-for="book in loadedBooks" :key="book.id" :book="book" />
-    {{ loadedBooks }}
   </div>
 </template>
 
@@ -15,13 +14,13 @@ export default {
     BookPreview,
   },
   created() {
-    this.fetchBooks;
-  },
-  methods: {
-    ...mapActions(["fetchBooks"]),
+    this.fetchBooks();
   },
   computed: {
     ...mapGetters(["loadedBooks"]),
+  },
+  methods: {
+    ...mapActions(["fetchBooks"]),
   },
 };
 </script>

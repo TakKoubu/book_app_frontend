@@ -5,11 +5,11 @@ const url = "http://localhost:5000/api"
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      loadedBooks: []
+      loadedBooks: [],
     },
     mutations: {
       setBooks(state, books){
-        state.loadedBooks = books
+        state.loadedBooks = books;
       }
     },
     actions: {
