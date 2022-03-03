@@ -33,7 +33,14 @@ const createStore = () => {
         })
         .catch((e) => console.log(e))
       },
-
+      fetchBook({ commit }){
+        return this.$axios
+        .get(`${url}/books`)
+        .then((res) => {
+          commit('setBooks', res.data)
+        })
+        .catch((e) => console.log(e))
+      },
     },
     getters: {
       loadedBooks(state){
