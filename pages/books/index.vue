@@ -1,15 +1,25 @@
 <template>
-  <div>
+  <section>
+    <input v-model="query.name_or_author_cont" />
+    <button @click="searchBook">Search</button>
     <BookPreview v-for="book in loadedBooks" :key="book.id" :book="book" />
-  </div>
+  </section>
 </template>
 
 <script>
 import BookPreview from "@/components/BookPreview";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import Qs from "qs";
 
 export default {
+  data() {
+    return {
+      query: {
+        name_cont_or_author_cont: "",
+      },
+    };
+  },
   components: {
     BookPreview,
   },
@@ -21,6 +31,16 @@ export default {
   },
   methods: {
     ...mapActions(["fetchBooks"]),
+    searchBook() {
+      this.$store.dispatch("fetchBooks", {
+        params: {
+          q: this.query,
+        },
+        paramsSerializer(params) {
+          return Qs.stringify(params, { arrayFormat: "brackets" });
+        },
+      });
+    },
   },
 };
 </script>

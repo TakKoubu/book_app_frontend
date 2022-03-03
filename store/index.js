@@ -13,9 +13,9 @@ const createStore = () => {
       }
     },
     actions: {
-      fetchBooks({ commit }){
+      fetchBooks({ commit }, params){
         return this.$axios
-        .get(`${url}/books`)
+        .get(`${url}/books`, params)
         .then((res) => {
           commit('setBooks', res.data)
         })
