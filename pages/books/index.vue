@@ -2,7 +2,7 @@
   <section>
     <input v-model="query.name_or_author_or_publication_date_cont" />
     <select
-      v-model="query.categories_name_in"
+      v-model="query.categories_id_in"
       name="category-form"
       class="select-multiple"
       multiple
@@ -31,7 +31,7 @@ export default {
     return {
       query: {
         name_cont_or_author_cont: "",
-        categories_name_in: [],
+        categories_id_in: [],
       },
     };
   },
