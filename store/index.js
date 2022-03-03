@@ -6,7 +6,8 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedBooks: [],
-      loadedCategories: []
+      loadedCategories: [],
+      book: ''
     },
     mutations: {
       setBooks(state, books){
@@ -14,6 +15,9 @@ const createStore = () => {
       },
       setCategories(state, categories){
         state.loadedCategories = categories
+      },
+      setBook(state, book){
+        state.book = book
       }
     },
     actions: {
@@ -33,7 +37,14 @@ const createStore = () => {
         })
         .catch((e) => console.log(e))
       },
-
+      fetchBook({ commit }, id){
+        return this.$axios
+        .get(`${url}/books/${id}`)
+        .then((res) => {
+          commit('setBook', res.data)
+        })
+        .catch((e) => console.log(e))
+      },
     },
     getters: {
       loadedBooks(state){
