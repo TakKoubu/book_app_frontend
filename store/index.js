@@ -51,7 +51,7 @@ const createStore = () => {
       },
       addCart({commit}, {id, itemNumber}){
         return this.$axios
-        .post(`${url}/carts`, { id: id, item_number: itemNumber })
+        .post(`${url}/carts`, { cart: { book_id: id, item_number: itemNumber }})
         .then((res) => {
           commit('addCart', res.data)
         })
@@ -63,6 +63,9 @@ const createStore = () => {
       },
       loadedCategories(state){
         return state.loadedCategories;
+      },
+      addedBooks(state){
+        return state.cart
       }
     }
   })
