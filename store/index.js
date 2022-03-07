@@ -7,8 +7,8 @@ const createStore = () => {
     state: {
       loadedBooks: [],
       loadedCategories: [],
+      loadedCarts: [],
       book: '',
-      cart: []
     },
     mutations: {
       setBooks(state, books){
@@ -21,7 +21,10 @@ const createStore = () => {
         state.book = book
       },
       addCart(state, cart) {
-        state.cart = cart
+        state.loadedCarts.push(cart)
+      },
+      setCarts(state, carts){
+        state.loadedCarts = carts
       }
     },
     actions: {
@@ -49,12 +52,20 @@ const createStore = () => {
         })
         .catch((e) => console.log(e))
       },
-      addCart({commit}, {id, itemNumber}){
+      addCart({ commit }, { id, itemNumber }){
         return this.$axios
         .post(`${url}/carts`, { cart: { book_id: id, item_number: itemNumber }})
         .then((res) => {
           commit('addCart', res.data)
         })
+      },
+      fetchCarts({ commit }){
+        return this.$axios
+        .get(`${url}/carts`)
+        .then((res) => {
+          commit('setCarts', res.data)
+        })
+        .catch((e) => console.log(e)) 
       }
     },
     getters: {
@@ -66,6 +77,9 @@ const createStore = () => {
       },
       addedBooks(state){
         return state.cart
+      },
+      loadedCarts(state){
+        return state.loadedCarts;
       }
     }
   })
