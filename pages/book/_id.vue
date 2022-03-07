@@ -1,7 +1,6 @@
 <template>
   <div class="item-container">
     <div class="item-info">
-      <p>{{ book.image }}</p>
       <p>題名-{{ book.name }}</p>
       <p>著者-{{ book.author }}</p>
       <p>出版日-{{ book.publication_date }}</p>
@@ -13,6 +12,7 @@
     <div class="cart-container">
       <span>数量</span>
       <select name="quantity" v-model="itemNumber">
+        <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -46,6 +46,14 @@ export default {
         .then(() => {
           this.$router.push("/confirmation");
         });
+    },
+  },
+  watch: {
+    itemNumber(value) {
+      if (value > this.book.stock) {
+        alert("在庫より多い数を選択しています。注文上限は在庫数分になります。");
+        this.itemNumber = this.book.stock;
+      }
     },
   },
 };
