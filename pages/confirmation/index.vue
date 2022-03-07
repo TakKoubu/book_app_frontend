@@ -14,17 +14,11 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-import { mapState } from "vuex";
 import CartPreview from "@/components/CartPreview";
 
 export default {
   components: {
     CartPreview,
-  },
-  data() {
-    return {
-      item_number: "",
-    };
   },
   created() {
     this.fetchCarts();

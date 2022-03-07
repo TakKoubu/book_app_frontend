@@ -3,7 +3,7 @@
     <p>本の名前{{ cart.book.name }}</p>
     <p>本の価格{{ cart.book.price }}</p>
     <p>消費税{{ consumptionTax(cart) }}</p>
-    <p><input v-model="item_number" />冊</p>
+    <p><input v-model="itemNumber" />冊</p>
     <p>{{ cart.book.stock }}</p>
     <p>合計額{{ taxIncludedPrice(cart) }}</p>
     <p>獲得ポイント{{ points(cart) }}</p>
@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      item_number: this.cart.item_number,
+      itemNumber: this.cart.item_number,
     };
   },
   props: {
@@ -36,10 +36,10 @@ export default {
     },
   },
   watch: {
-    item_number(value) {
+    itemNumber(value) {
       if (value > this.cart.book.stock) {
         alert("在庫より多い数を選択しています。注文上限は在庫数分になります。");
-        this.item_number = this.cart.book.stock;
+        this.itemNumber = this.cart.book.stock;
       }
     },
   },
