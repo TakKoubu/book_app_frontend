@@ -34,7 +34,6 @@ export default {
   },
   computed: {
     ...mapGetters(["loadedCarts"]),
-    ...mapState(["book"]),
     sumOfBooks() {
       var sum = 0;
       this.loadedCarts.forEach((cart) => {
