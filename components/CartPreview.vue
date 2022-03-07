@@ -7,6 +7,7 @@
     <p>{{ cart.book.stock }}</p>
     <p>合計額{{ taxIncludedPrice(cart) }}</p>
     <p>獲得ポイント{{ points(cart) }}</p>
+    <button @click="deleteItem(cart.id)">削除</button>
   </section>
 </template>
 
@@ -33,6 +34,11 @@ export default {
     },
     points(cart) {
       return Math.floor(cart.book.price * 1.1 * 0.1) * cart.item_number;
+    },
+    deleteItem(id) {
+      this.$store.dispatch("deleteItem", id).then(() => {
+        this.$router.push("/confirmation");
+      });
     },
   },
   watch: {
