@@ -6,7 +6,7 @@
       :item="item"
     ></CartPreview>
     <p>小計{{ sumOfBooks }}</p>
-    <!-- <p>獲得ポイント合計{{ sumOfPoints }}</p> -->
+    <p>獲得ポイント合計{{ sumOfPoints }}</p>
     <button>購入ボタン</button>
   </div>
 </template>
