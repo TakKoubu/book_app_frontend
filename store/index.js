@@ -88,6 +88,13 @@ const createStore = () => {
         .then((res) => {
           commit('updateCart', res.data)
         })
+      },
+      deleteCarts({ commit }){
+        return this.$axios
+        .delete(`${url}/carts`)
+        .then((res) => {
+          commit('deleteCarts')
+        })
       }
     },
     getters: {
