@@ -30,9 +30,12 @@ const createStore = () => {
         const index = state.loadedCarts.findIndex((v) => v.id === id)
         state.loadedCarts.splice(index, 1)
       },
-      updateCart(state, cart) {
-        const index = state.loadedCarts.findIndex((v) => v.id === cart.id) 
+      updateCart(state, item) {
+        const index = state.loadedCarts.findIndex((v) => v.id === item.id) 
         state.loadedCarts.splice(index, 1, cart)
+      },
+      deleteCarts(state) {
+        state.loadedCarts = []
       }
     },
     actions: {
@@ -87,6 +90,13 @@ const createStore = () => {
         .patch(`${url}/carts/${id}`, { item_number: itemNumber})
         .then((res) => {
           commit('updateCart', res.data)
+        })
+      },
+      delteCarts({ commit }){
+        return this.$axios
+        .delete(`${url}/carts`)
+        .then((res) => {
+          commit('deleteCarts')
         })
       }
     },
