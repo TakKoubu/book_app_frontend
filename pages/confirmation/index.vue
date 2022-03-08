@@ -1,9 +1,9 @@
 <template>
   <div>
     <CartPreview
-      v-for="cart in loadedCarts"
-      :key="cart.id"
-      :cart="cart"
+      v-for="item in loadedCarts"
+      :key="item.id"
+      :item="item"
     ></CartPreview>
     <p>小計{{ sumOfBooks }}</p>
     <p>獲得ポイント合計{{ sumOfPoints }}</p>
@@ -37,8 +37,9 @@ export default {
     },
     sumOfPoints() {
       var sumOfPoints = 0;
-      this.loadedCarts.forEach((row) => {
-        sumOfPoints += Math.floor(row.book.price * 1.1 * 0.1) * row.item_number;
+      this.loadedCarts.forEach((cart) => {
+        sumOfPoints +=
+          Math.floor(cart.book.price * 1.1 * 0.1) * cart.item_number;
       });
       return sumOfPoints;
     },
