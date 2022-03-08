@@ -33,6 +33,9 @@ const createStore = () => {
       updateCart(state, cart) {
         const index = state.loadedCarts.findIndex((v) => v.id === cart.id) 
         state.loadedCarts.splice(index, 1, cart)
+      },
+      deleteCarts(state) {
+        state.loadedCarts = []
       }
     },
     actions: {
