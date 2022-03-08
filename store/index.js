@@ -25,6 +25,10 @@ const createStore = () => {
       },
       setCarts(state, carts){
         state.loadedCarts = carts
+      },
+      deleteItem(state, id) {
+        const index = state.loadedCarts.findIndex((v) => v.id === id)
+        state.loadedCarts.splice(index, 1)
       }
     },
     actions: {
@@ -66,6 +70,13 @@ const createStore = () => {
           commit('setCarts', res.data)
         })
         .catch((e) => console.log(e)) 
+      },
+      deleteItem({ commit }, id){
+        return this.$axios
+        .delete(`${url}/carts/${id}`)
+        .then((res) => {
+          commit('deleteItem', id)
+        })
       }
     },
     getters: {
