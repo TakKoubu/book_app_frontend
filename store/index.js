@@ -9,6 +9,7 @@ const createStore = () => {
       loadedCategories: [],
       loadedCarts: [],
       book: '',
+      loadedOrders: []
     },
     mutations: {
       setBooks(state, books){
@@ -34,8 +35,9 @@ const createStore = () => {
         const index = state.loadedCarts.findIndex((v) => v.id === cart.id) 
         state.loadedCarts.splice(index, 1, cart)
       },
-      deleteCarts(state) {
+      createOrders(state, orders) {
         state.loadedCarts = []
+        state.loadedOrders.push(orders)
       }
     },
     actions: {
@@ -92,11 +94,11 @@ const createStore = () => {
           commit('updateCart', res.data)
         })
       },
-      deleteCarts({ commit }){
+      createOrders({ commit }, orders){
         return this.$axios
-        .delete(`${url}/carts`)
+        .post(`${url}/orders`, { orders: orders })
         .then((res) => {
-          commit('deleteCarts')
+          commit('createOrders', orders)
         })
       }
     },
