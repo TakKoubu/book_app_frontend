@@ -7,7 +7,7 @@
     ></CartPreview>
     <p>小計{{ sumOfBooks }}</p>
     <p>獲得ポイント合計{{ sumOfPoints }}</p>
-    <button @click="buyBooks(loadedCarts)">購入ボタン</button>
+    <button @click="buyBooks()">購入ボタン</button>
   </div>
 </template>
 
@@ -26,9 +26,9 @@ export default {
   },
   methods: {
     ...mapActions(["fetchCarts"]),
-    buyBooks(orders) {
+    buyBooks() {
       const result = confirm("購入を完了させますか？");
-      if (result) this.$store.dispatch("createOrders", orders);
+      if (result) this.$store.dispatch("createOrders");
     },
   },
   computed: {
@@ -45,7 +45,7 @@ export default {
       var sumOfPoints = 0;
       this.loadedCarts.forEach((item) => {
         sumOfPoints +=
-          Math.floor(item.book.price * 1.1 * 0.1) * item.item_number;
+          Math.floor(Math.floor(item.book.price * 1.1 ) * item.item_number * 0.1);
       });
       return sumOfPoints;
     },

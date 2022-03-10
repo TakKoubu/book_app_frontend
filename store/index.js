@@ -94,11 +94,11 @@ const createStore = () => {
           commit('updateCart', res.data)
         })
       },
-      createOrders({ commit }, orders){
+      createOrders({ commit }){
         return this.$axios
-        .post(`${url}/orders`, { orders: orders })
+        .post(`${url}/orders`)
         .then((res) => {
-          commit('createOrders', orders)
+          commit('createOrders', red.data)
         })
       }
     },
