@@ -42,9 +42,6 @@ export default {
     updateCart(item) {
       this.$store
         .dispatch("updateCart", { id: item.id, itemNumber: this.itemNumber })
-        .then(() => {
-          this.$router.push("/confirmation");
-        });
     },
   },
   watch: {
