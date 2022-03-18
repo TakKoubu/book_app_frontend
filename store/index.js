@@ -31,13 +31,15 @@ const createStore = () => {
         const index = state.loadedCarts.findIndex((v) => v.id === id)
         state.loadedCarts.splice(index, 1)
       },
-      updateCart(state, cart) {
-        const index = state.loadedCarts.findIndex((v) => v.id === cart.id) 
+      updateCart(state, item) {
+        const index = state.loadedCarts.findIndex((v) => v.id === item.id) 
         state.loadedCarts.splice(index, 1, cart)
       },
       addOrders(state, orders) {
         state.loadedCarts = []
         state.loadedOrders.push(orders)
+      deleteCarts(state) {
+        state.loadedCarts = []
       }
     },
     actions: {
@@ -99,6 +101,13 @@ const createStore = () => {
         .post(`${url}/orders`)
         .then((res) => {
           commit('addOrders', red.data)
+         })
+      },
+      delteCarts({ commit }){
+        return this.$axios
+        .delete(`${url}/carts`)
+        .then((res) => {
+          commit('deleteCarts')
         })
       }
     },
