@@ -28,7 +28,7 @@ export default {
     ...mapActions(["fetchCarts"]),
     buyBooks() {
       const result = confirm("購入を完了させますか？");
-      if (result) this.$store.dispatch("createOrders");
+      if (result) this.$store.dispatch("addOrders");
     },
   },
   computed: {

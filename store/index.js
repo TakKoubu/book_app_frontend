@@ -35,7 +35,7 @@ const createStore = () => {
         const index = state.loadedCarts.findIndex((v) => v.id === cart.id) 
         state.loadedCarts.splice(index, 1, cart)
       },
-      createOrders(state, orders) {
+      addOrders(state, orders) {
         state.loadedCarts = []
         state.loadedOrders.push(orders)
       }
@@ -94,11 +94,11 @@ const createStore = () => {
           commit('updateCart', res.data)
         })
       },
-      createOrders({ commit }){
+      addOrders({ commit }){
         return this.$axios
         .post(`${url}/orders`)
         .then((res) => {
-          commit('createOrders', red.data)
+          commit('addOrders', red.data)
         })
       }
     },

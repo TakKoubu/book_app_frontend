@@ -32,7 +32,7 @@ export default {
       return Math.floor(item.book.price * 1.1) * this.itemNumber;
     },
     points(item) {
-      return Math.floor(Math.floor(item.book.price * 1.1 ) * this.itemNumber *0.1);
+      return Math.floor(Math.floor(item.book.price * 1.1 ) * this.itemNumber * 0.1);
     },
     deleteItem(id) {
       this.$store.dispatch("deleteItem", id).then(() => {
