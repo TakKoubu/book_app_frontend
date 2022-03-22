@@ -28,7 +28,7 @@ export default {
     ...mapActions(["fetchCarts"]),
     buyBooks() {
       const result = confirm("購入を完了させますか？");
-      if (result) this.$store.dispatch("deleteCarts");
+      if (result) this.$store.dispatch("addOrders");
     },
   },
   computed: {
@@ -45,7 +45,7 @@ export default {
       var sumOfPoints = 0;
       this.loadedCarts.forEach((item) => {
         sumOfPoints +=
-          Math.floor(item.book.price * 1.1 * 0.1) * item.item_number;
+          Math.floor(Math.floor(item.book.price * 1.1 ) * item.item_number * 0.1);
       });
       return sumOfPoints;
     },

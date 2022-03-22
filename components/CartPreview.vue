@@ -32,7 +32,7 @@ export default {
       return Math.floor(item.book.price * 1.1) * this.itemNumber;
     },
     points(item) {
-      return Math.floor(item.book.price * 1.1 * 0.1) * this.itemNumber;
+      return Math.floor(Math.floor(item.book.price * 1.1 ) * this.itemNumber * 0.1);
     },
     deleteItem(id) {
       this.$store.dispatch("deleteItem", id).then(() => {
@@ -42,9 +42,6 @@ export default {
     updateCart(item) {
       this.$store
         .dispatch("updateCart", { id: item.id, itemNumber: this.itemNumber })
-        .then(() => {
-          this.$router.push("/confirmation");
-        });
     },
   },
   watch: {
