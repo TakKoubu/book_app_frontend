@@ -7,13 +7,14 @@
     ></CartPreview>
     <p>小計{{ sumOfBooks }}</p>
     <p>獲得ポイント合計{{ sumOfPoints }}</p>
-    <button>購入ボタン</button>
+    <button @click="buyBooks()">購入ボタン</button>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import { mapState } from "vuex";
 import CartPreview from "@/components/CartPreview";
 
 export default {
@@ -25,21 +26,26 @@ export default {
   },
   methods: {
     ...mapActions(["fetchCarts"]),
+    buyBooks() {
+      const result = confirm("購入を完了させますか？");
+      if (result) this.$store.dispatch("deleteCarts");
+    },
   },
   computed: {
     ...mapGetters(["loadedCarts"]),
+    ...mapState(["loadedCarts"]),
     sumOfBooks() {
       var sum = 0;
-      this.loadedCarts.forEach((cart) => {
-        sum += Math.floor(cart.book.price * 1.1) * cart.item_number;
+      this.loadedCarts.forEach((item) => {
+        sum += Math.floor(item.book.price * 1.1) * item.item_number;
       });
       return sum;
     },
     sumOfPoints() {
       var sumOfPoints = 0;
-      this.loadedCarts.forEach((cart) => {
+      this.loadedCarts.forEach((item) => {
         sumOfPoints +=
-          Math.floor(cart.book.price * 1.1 * 0.1) * cart.item_number;
+          Math.floor(item.book.price * 1.1 * 0.1) * item.item_number;
       });
       return sumOfPoints;
     },

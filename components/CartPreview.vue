@@ -3,8 +3,7 @@
     <p>本の名前{{ item.book.name }}</p>
     <p>本の価格{{ item.book.price }}</p>
     <p>消費税{{ consumptionTax(item) }}</p>
-    <p><input v-model="itemNumber" />冊</p>
-    <p>{{ item.book.stock }}</p>
+    <p><input v-model="itemNumber" @change="updateCart(item)" />冊</p>
     <p>合計額{{ taxIncludedPrice(item) }}</p>
     <p>獲得ポイント{{ points(item) }}</p>
     <button @click="deleteItem(item.id)">削除</button>
@@ -30,15 +29,22 @@ export default {
       return Math.floor(item.book.price * 0.1);
     },
     taxIncludedPrice(item) {
-      return Math.floor(item.book.price * 1.1) * item.item_number;
+      return Math.floor(item.book.price * 1.1) * this.itemNumber;
     },
     points(item) {
-      return Math.floor(item.book.price * 1.1 * 0.1) * item.item_number;
+      return Math.floor(item.book.price * 1.1 * 0.1) * this.itemNumber;
     },
     deleteItem(id) {
       this.$store.dispatch("deleteItem", id).then(() => {
         this.$router.push("/confirmation");
       });
+    },
+    updateCart(item) {
+      this.$store
+        .dispatch("updateCart", { id: item.id, itemNumber: this.itemNumber })
+        .then(() => {
+          this.$router.push("/confirmation");
+        });
     },
   },
   watch: {
